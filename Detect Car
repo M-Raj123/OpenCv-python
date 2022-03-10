@@ -1,0 +1,26 @@
+import cv2
+vid_path = cv2.VideoCapture(r"...\\video_path") 
+
+car_cascade = cv2.CascadeClassifier(r"...\\cars.xml")
+bike_cascade = 0 
+
+while True:
+    val, frame =  vid_path.read()
+
+    gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+
+    car_shape = car_cascade.detectMultiScale(gray,1.1,1)
+    
+    for(x,y,w,h) in car_shape:
+
+        cv2.rectangle(frame,(x,y),(x+w,y+h),(0,0,255),2)
+        cv2.putText(frame, 'Car', (x, y),cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0))
+
+
+    cv2.imshow('Car_Detection',frame)
+    if cv2.waitKey(25) == ord('q') :
+        break
+
+cv2.destroyAllWindows()
+                                                    
+    
